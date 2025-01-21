@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionQTech</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background-color: #EFEFEF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 700px;
+            height: 500px;
+            background: white;
+            border: 1px solid black;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            width: 700px;
+            height: 80px;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 400;
+        }
+
+        .input-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #user-input {
+            width: 500px;
+            height: 50px;
+            border-radius: 15px;
+            border: 1px solid black;
+            font-size: 20px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        #send-request {
+            width: 74px;
+            height: 50px;
+            background: #D2D2D2;
+            border-radius: 15px;
+            border: 1px solid black;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            padding: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">VisonQTech</div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="질문을 입력하세요">
+            <button id="send-request">SEND</button>
+        </div>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        document.getElementById("send-request").addEventListener("click", () => {
+            // 사용자가 입력한 텍스트 가져오기
+            const question = document.getElementById("user-input").value;
+
+            if (!question) {
+                document.getElementById("output").textContent = "질문을 입력해주세요.";
+                return;
+            }
+
+            // API 호출
+            fetch("http://10.10.201.131:5000/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    question: question // 사용자의 입력을 서버로 전달
+                })
+            })
+                .then(response => response.json()) // JSON 응답 처리
+                .then(data => {
+                    // 응답 데이터 출력
+                    const output = `
+SQL Query: ${data.sql_query || "N/A"}
+
+Database Results: ${JSON.stringify(data.db_results, null, 2) || "N/A"}
+
+Response: ${data.response || "N/A"}`;
+                    document.getElementById("output").textContent = output;
+                })
+                .catch(error => {
+                    document.getElementById("output").textContent = `Error: ${error}`;
+                });
+        });
+    </script>
+</body>
+</html>
