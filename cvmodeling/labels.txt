@@ -1,0 +1,6 @@
+0 crack
+1 dent
+2 good
+3 hole
+4 peeling
+5 scratch
