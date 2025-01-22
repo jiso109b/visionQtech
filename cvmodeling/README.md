@@ -1,10 +1,12 @@
 
 # Yolov5 + ResNet50 Modeling
 ## Backbone change
-![image](https://github.com/user-attachments/assets/86fcfbfd-2d73-476f-8244-bd4397b90ab1)
+![image](https://github.com/user-attachments/assets/7611683d-dd8f-4f29-95ef-ff75dee72bc1)
+
 
 https://www.kaggle.com/datasets/ravirajsinh45/real-life-industrial-dataset-of-casting-product
 
 
 # Prediction
-![image](https://github.com/user-attachments/assets/1c8d386d-290b-4cad-a3d1-7c668321c2d6)
+![image](https://github.com/user-attachments/assets/ddb257cd-94ff-43d7-bfa7-7e4b349e4267)
+
